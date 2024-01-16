@@ -1,4 +1,6 @@
-﻿using BaltaBlog.Screens.RoleScreens;
+﻿using BaltaBlog.Screens.CategoryScreens;
+using BaltaBlog.Screens.PostScreens;
+using BaltaBlog.Screens.RoleScreens;
 using BaltaBlog.Screens.TagScreens;
 using BaltaBlog.Screens.UserRoleScreens;
 using BaltaBlog.Screens.UserScreens;
@@ -14,13 +16,13 @@ class Program
         Database.Connection = new SqlConnection(connectionString);
         Database.Connection.Open();
 
-        Load();
+        LoadMain();
 
         Console.ReadKey();
         Database.Connection.Close();
     }
 
-    private static void Load()
+    private static void LoadMain()
     {
         Console.Clear();
         Console.Clear();
@@ -33,8 +35,9 @@ class Program
         Console.WriteLine("3 - Gestão de categoria");
         Console.WriteLine("4 - Gestão de tags");
         Console.WriteLine("5 - Gestão de usuário com perfil");
-        Console.WriteLine("6 - Vincular post/tag");
-        Console.WriteLine("7 - Relatórios");
+        Console.WriteLine("6 - Gestão de posts");
+        Console.WriteLine("7 - Vincular post/tag");
+        Console.WriteLine("8 - Relatórios");
         Console.WriteLine();
         Console.WriteLine();
         var option = short.Parse(Console.ReadLine()!);
@@ -47,14 +50,20 @@ class Program
             case 2:
                 MenuRoleScreen.Load();
                 break;
+            case 3:
+                MenuCategoryScreen.Load();
+                break;
             case 4:
                 MenuTagScreen.Load();
                 break;
             case 5:
                 MenuUserRoleScreen.Load();
                 break;
+            case 6:
+                MenuPostScreen.Load();
+                break;
             default:
-                Load();
+                LoadMain();
                 break;
         }
     }
