@@ -1,5 +1,6 @@
 ﻿using BaltaBlog.Screens.CategoryScreens;
 using BaltaBlog.Screens.PostScreens;
+using BaltaBlog.Screens.PostTagScreens;
 using BaltaBlog.Screens.RoleScreens;
 using BaltaBlog.Screens.TagScreens;
 using BaltaBlog.Screens.UserRoleScreens;
@@ -36,7 +37,7 @@ class Program
         Console.WriteLine("4 - Gestão de tags");
         Console.WriteLine("5 - Gestão de usuário com perfil");
         Console.WriteLine("6 - Gestão de posts");
-        Console.WriteLine("7 - Vincular post/tag");
+        Console.WriteLine("7 - Gestão de posts com tags");
         Console.WriteLine("8 - Relatórios");
         Console.WriteLine();
         Console.WriteLine();
@@ -61,6 +62,9 @@ class Program
                 break;
             case 6:
                 MenuPostScreen.Load();
+                break;
+            case 7:
+                MenuPostTagScreen.Load();
                 break;
             default:
                 LoadMain();

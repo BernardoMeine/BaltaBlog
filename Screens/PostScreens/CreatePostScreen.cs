@@ -53,25 +53,38 @@ public static class CreatePostScreen
     var categoryRepository = new Repository<Category>(Database.Connection);
     var postRepository = new Repository<Post>(Database.Connection);
 
-    // Obtém a categoria do banco de dados
-    var category = categoryRepository.Get(categoryId);
-
-    if (category != null)
+    try
     {
-      // Insere a postagem no banco de dados
-      postRepository.Create(post);
+      var category = categoryRepository.Get(categoryId);
 
-      // Adiciona a postagem à lista de postagens da categoria
-      if (category.Posts == null)
+      if (category != null)
       {
-        category.Posts = new List<Post>();
+        // Insere a postagem no banco de dados
+        postRepository.Create(post);
+
+        // Adiciona a postagem à lista de postagens da categoria
+        if (category.Posts == null)
+        {
+          category.Posts = new List<Post>();
+        }
+
+        if (!category.Posts.Any(p => p.Id == post.Id))
+        {
+          category.Posts.Add(post);
+        }
+
+        // Atualiza a categoria no banco de dados para persistir a associação
+        categoryRepository.Update(category);
+
+        Console.WriteLine("Post criado com sucesso");
       }
-      category.Posts.Add(post);
-
-      // Atualiza a categoria no banco de dados para persistir a associação
-      categoryRepository.Update(category);
-
-      Console.WriteLine("Post criado com sucesso");
     }
+    catch (Exception ex)
+    {
+      Console.WriteLine($"Erro ao adicionar post à categoria: {ex.Message}");
+    }
+
+    // Obtém a categoria do banco de dados
+
   }
 }
